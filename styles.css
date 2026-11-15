@@ -55,7 +55,7 @@ h2 { font-size: clamp(2.2rem, 5vw, 4rem); }
 /* HERO */
 .hero { position: relative; min-height: 100vh; display: flex; align-items: center; padding: 0 4vw; overflow: hidden; }
 #tape { position: absolute; inset: 0; width: 100%; height: 100%; }
-.hero-copy { position: relative; z-index: 2; max-width: 640px; pointer-events: none; }
+.hero-copy { position: relative; z-index: 2; max-width: min(640px, 56%); pointer-events: none; }
 .hero-copy a { pointer-events: auto; }
 .hero h1 { font-size: clamp(2.8rem, 7vw, 6.2rem); margin-bottom: 1.6rem; }
 .lede { max-width: 440px; color: var(--mute); margin-bottom: 2.2rem; }
@@ -144,19 +144,30 @@ footer .logo { color: var(--ink); }
 /* MOBILE */
 @media (max-width: 860px) {
   .menu-btn { display: block; z-index: 2; }
-  .nav nav { position: fixed; inset: 0; background: var(--bg); flex-direction: column; justify-content: center; gap: 2rem; transform: translateY(-100%); transition: transform .5s; }
+  .nav nav { position: fixed; inset: 0; background: var(--bg); flex-direction: column; justify-content: center; gap: 2rem; transform: translateY(-100%); visibility: hidden; overflow-y: auto; transition: transform .5s, visibility .5s; }
   .nav nav a { font-family: var(--serif); font-size: 2.4rem; opacity: 1; }
   .nav-cta { border: 0; padding: 0; }
-  .nav.open nav { transform: none; }
+  .nav.open nav { transform: none; visibility: visible; }
   .nav.open .menu-btn span:first-child { transform: translateY(4px) rotate(45deg); }
   .nav.open .menu-btn span:last-child { transform: translateY(-4px) rotate(-45deg); }
-  .hero { align-items: flex-end; padding-bottom: 7rem; }
-  .hero-copy { max-width: none; }
   .strip { grid-template-columns: repeat(2, 1fr); gap: 2vw; }
   .about, .contact, .quotes { grid-template-columns: 1fr; }
   form .row { grid-template-columns: 1fr; }
   .grid { columns: 2; column-gap: 2vw; }
   .grid figure { margin-bottom: 2vw; }
+}
+@media (max-width: 860px) and (orientation: portrait) {
+  .hero { align-items: flex-end; padding-bottom: 7rem; }
+  .hero-copy { max-width: none; }
+}
+@media (max-height: 520px) and (orientation: landscape) {
+  .hero { padding-top: 4.5rem; padding-bottom: 1.5rem; }
+  .hero h1 { font-size: clamp(1.8rem, 10vh, 3.2rem); margin-bottom: 1rem; }
+  .lede { font-size: .9rem; margin-bottom: 1.2rem; }
+  .eyebrow { margin-bottom: .6rem; }
+  .scroll-hint { display: none; }
+  .nav nav a { font-size: 1.8rem; }
+  .nav nav { gap: 1rem; }
 }
 @media (prefers-reduced-motion: reduce) {
   .reveal { opacity: 1; transform: none; transition: none; }

@@ -193,17 +193,23 @@ function layout() {
   camera.updateProjectionMatrix();
   const halfH = Math.tan(THREE.MathUtils.degToRad(camera.fov / 2)) * camera.position.z;
   const halfW = halfH * camera.aspect;
-  if (camera.aspect < 0.9) {           // phone: tape on top, text below
-    root.scale.setScalar(Math.min(1, (halfW * 1.45) / W));
-    root.position.set(0, halfH * 0.52, 0);
-  } else if (camera.aspect < 1.4) {    // tablet
-    root.scale.setScalar(0.85);
-    root.position.set(halfW * 0.4, halfH * 0.15, 0);
-  } else {                             // desktop: tape on the right
-    root.scale.setScalar(1);
-    root.position.set(halfW * 0.42, 0, 0);
+  // Fit the tape into the empty space next to (desktop) or above (mobile) the hero text.
+  const u = (2 * halfH) / h; // world units per CSS pixel
+  const copy = document.querySelector(".hero-copy").getBoundingClientRect();
+  const top = hero.getBoundingClientRect().top;
+  if (w <= 860 && h > w) {
+    const y0 = 80, y1 = Math.max(y0 + 80, copy.top - top - 16);   // between nav and text
+    const s = Math.min(1, ((y1 - y0) * u) / (H * 1.25), (w * 0.88 * u) / (W * 1.1));
+    root.scale.setScalar(s);
+    root.position.set(0, halfH - ((y0 + y1) / 2) * u, 0);
+  } else {
+    const x0 = copy.right + 24, x1 = w - 32;                      // right of the text
+    const s = Math.min(1, ((x1 - x0) * u) / (W * 1.15), (h * 0.7 * u) / H);
+    root.scale.setScalar(s);
+    root.position.set(((x0 + x1) / 2 - w / 2) * u, 0, 0);
   }
 }
+document.fonts?.ready.then(layout);
 window.addEventListener("resize", layout);
 layout();
 
