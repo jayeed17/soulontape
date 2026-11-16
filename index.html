@@ -4,165 +4,199 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Soul on Tape — Photo & Film</title>
-  <meta name="description" content="Soul on Tape — photography and film built on composition, light, and memory." />
+  <meta name="description" content="Soul on Tape — wedding, portrait and music photography & film. Moments worth rewinding." />
+  <meta name="theme-color" content="#0e0d0c" />
+  <link rel="icon" href="assets/favicon.svg" type="image/svg+xml" />
+  <link rel="canonical" href="https://soulontape.com/" />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://soulontape.com/" />
+  <meta property="og:title" content="Soul on Tape — Photo & Film" />
+  <meta property="og:description" content="Moments worth rewinding. Weddings, portraits, music." />
+  <meta property="og:image" content="https://soulontape.com/assets/og.jpg" />
+  <meta name="twitter:card" content="summary_large_image" />
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Inter:wght@300;400;500&family=Space+Mono&display=swap" rel="stylesheet" />
   <link rel="stylesheet" href="styles.css" />
   <script type="importmap">
-    {
-      "imports": {
+    { "imports": {
         "three": "https://unpkg.com/three@0.160.0/build/three.module.js",
-        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/"
-      }
-    }
+        "three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/" } }
   </script>
 </head>
-<body>
+<body class="loading">
   <div class="grain" aria-hidden="true"></div>
+  <div class="cursor" aria-hidden="true"><span></span></div>
+
+  <!-- PRELOADER: tape counter -->
+  <div class="loader" aria-hidden="true">
+    <div class="counter"><span id="count">000</span></div>
+    <p>rewinding<span class="dots"></span></p>
+    <div class="bar"><i id="bar"></i></div>
+  </div>
 
   <!-- NAV -->
   <header class="nav">
     <a href="#top" class="logo">soul<span>on</span>tape</a>
-    <nav>
-      <a href="#about">About</a>
-      <a href="#work">Work</a>
-      <a href="#film">Film</a>
-      <a href="#words">Kind Words</a>
-      <a href="#contact" class="nav-cta">Contact</a>
+    <nav id="menu">
+      <a href="#work"><small>01</small>Work</a>
+      <a href="#tracklist"><small>02</small>Projects</a>
+      <a href="#film"><small>03</small>Film</a>
+      <a href="#about"><small>04</small>About</a>
+      <a href="#contact"><small>05</small>Contact</a>
     </nav>
-    <button class="menu-btn" aria-label="Menu"><span></span><span></span></button>
+    <a href="#contact" class="book">Book a date</a>
+    <button class="menu-btn" aria-label="Open menu" aria-expanded="false" aria-controls="menu"><span></span><span></span></button>
   </header>
 
-  <!-- HERO -->
-  <section class="hero" id="top">
-    <canvas id="tape"></canvas>
-    <div class="hero-copy">
-      <p class="eyebrow">Photo &amp; Film — Est. 2026</p>
-      <h1>We blend composition,<br />light, and <em class="rotator"><span>memory.</span><span>emotion.</span><span>what is felt.</span></em></h1>
-      <p class="lede">Every frame is a recording. We press play on the moments you'll want to rewind — honest, warm, and made to last.</p>
-      <a href="#work" class="btn">See the work</a>
-    </div>
-    <div class="scroll-hint"><span>scroll</span><i></i></div>
-  </section>
+  <main>
+    <!-- HERO -->
+    <section class="hero" id="top">
+      <canvas id="tape" aria-label="3D cassette tape"></canvas>
+      <div class="hero-copy">
+        <p class="eyebrow"><span class="rec"></span>REC — Photo &amp; Film</p>
+        <h1><span class="line">Moments worth</span><span class="line"><em class="rotator"><span>rewinding.</span><span>replaying.</span><span>keeping.</span></em></span></h1>
+        <p class="lede">Weddings, portraits and music, shot like a mixtape: honest, warm, made to be played back for years.</p>
+        <div class="hero-cta">
+          <a href="#work" class="btn" data-cursor="view">See the work</a>
+          <a href="#film" class="link" data-cursor="play">Play the reel &rarr;</a>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <span>SIDE A</span><span id="clock">00:00:00</span><span>C-90</span>
+      </div>
+    </section>
 
-  <!-- STRIP -->
-  <section class="strip reveal">
-    <img src="https://picsum.photos/seed/sot-a/700/900" alt="" loading="lazy" />
-    <img src="https://picsum.photos/seed/sot-b/700/900" alt="" loading="lazy" />
-    <img src="https://picsum.photos/seed/sot-c/700/900" alt="" loading="lazy" />
-    <img src="https://picsum.photos/seed/sot-d/700/900" alt="" loading="lazy" />
-  </section>
-
-  <!-- ABOUT -->
-  <section class="about" id="about">
-    <div class="about-img reveal"><img src="https://picsum.photos/seed/sot-portrait/900/1100" alt="Portrait of the photographer" loading="lazy" /></div>
-    <div class="about-copy reveal">
-      <p class="eyebrow">Side A — Who</p>
-      <h2>Intentional work for people who want something <em>real.</em></h2>
-      <p>Soul on Tape started with a simple idea: the best images feel like a song you already know. We slow down, pay attention to light, and let the story lead.</p>
-      <p>Weddings, portraits, music videos, brands — if it means something to you, it gets our full attention.</p>
-      <a href="#contact" class="link">Our story &rarr;</a>
-    </div>
-  </section>
-
-  <!-- WORK -->
-  <section class="work" id="work">
-    <div class="section-head reveal">
-      <p class="eyebrow">Side B — Portfolio</p>
-      <h2>See what we see.</h2>
-      <div class="filters">
-        <button class="active" data-f="all">All</button>
-        <button data-f="wedding">Weddings</button>
-        <button data-f="portrait">Portraits</button>
-        <button data-f="music">Music</button>
+    <!-- MARQUEE -->
+    <div class="marquee" aria-hidden="true">
+      <div class="marquee-track">
+        <span>Weddings</span><i>✦</i><span>Portraits</span><i>✦</i><span>Music videos</span><i>✦</i><span>Brands</span><i>✦</i><span>Events</span><i>✦</i>
+        <span>Weddings</span><i>✦</i><span>Portraits</span><i>✦</i><span>Music videos</span><i>✦</i><span>Brands</span><i>✦</i><span>Events</span><i>✦</i>
       </div>
     </div>
-    <div class="grid" id="grid"></div>
-  </section>
 
-  <!-- FILM -->
-  <section class="film" id="film">
-    <div class="section-head reveal">
-      <p class="eyebrow">Now Playing</p>
-      <h2>The reel.</h2>
-    </div>
-    <div class="reel reveal">
-      <!-- Drop the video at assets/reel.mp4 (and optionally a poster at assets/reel-poster.jpg) -->
-      <video id="reel" playsinline muted loop preload="metadata" poster="https://picsum.photos/seed/sot-reel/1600/900">
-        <source src="assets/reel.mp4" type="video/mp4" />
-      </video>
-      <button class="play" id="playBtn" aria-label="Play reel"><span>&#9654;</span></button>
-      <div class="reel-label">SOT — REEL 01</div>
-    </div>
-  </section>
-
-  <!-- TESTIMONIALS (replace with real client reviews) -->
-  <section class="words" id="words">
-    <p class="eyebrow reveal">Kind Words</p>
-    <div class="quotes">
-      <figure class="reveal">
-        <h3>Client headline here.</h3>
-        <blockquote>Replace with a real review from a client.</blockquote>
-        <figcaption>— Client name</figcaption>
-      </figure>
-      <figure class="reveal">
-        <h3>Client headline here.</h3>
-        <blockquote>Replace with a real review from a client.</blockquote>
-        <figcaption>— Client name</figcaption>
-      </figure>
-      <figure class="reveal">
-        <h3>Client headline here.</h3>
-        <blockquote>Replace with a real review from a client.</blockquote>
-        <figcaption>— Client name</figcaption>
-      </figure>
-    </div>
-  </section>
-
-  <!-- CTA + CONTACT -->
-  <section class="contact" id="contact">
-    <div class="contact-copy reveal">
-      <p class="eyebrow">Record</p>
-      <h2>An experience that is thoughtful, refined, and <em>profoundly personal.</em></h2>
-      <p>Tell us what you're planning. We usually reply within 48 hours.</p>
-      <ul class="contact-links">
-        <li><a href="mailto:hello@soulontape.com">hello@soulontape.com</a></li>
-        <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram</a></li>
-        <li><a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok</a></li>
-      </ul>
-    </div>
-    <form id="contactForm" class="reveal" novalidate>
-      <div class="row">
-        <label>Name<input name="name" required maxlength="120" /></label>
-        <label>Email<input name="email" type="email" required maxlength="200" /></label>
+    <!-- SELECTED WORK: horizontal scroll -->
+    <section class="work" id="work">
+      <div class="work-sticky">
+        <div class="work-head">
+          <p class="eyebrow">01 — Selected work</p>
+          <h2>Greatest <em>hits.</em></h2>
+          <p class="hint">scroll &rarr;</p>
+        </div>
+        <div class="work-track" id="workTrack"></div>
       </div>
-      <div class="row">
-        <label>What is it?
-          <select name="kind">
-            <option>Wedding</option>
-            <option>Portrait</option>
-            <option>Music video</option>
-            <option>Brand / Commercial</option>
-            <option>Other</option>
-          </select>
-        </label>
+    </section>
+
+    <!-- TRACKLIST -->
+    <section class="tracklist" id="tracklist">
+      <div class="section-head">
+        <p class="eyebrow">02 — The full tape</p>
+        <h2>Tracklist.</h2>
+        <div class="filters" role="tablist" aria-label="Filter projects">
+          <button class="active" data-f="all" role="tab" aria-selected="true">All</button>
+          <button data-f="wedding" role="tab" aria-selected="false">Weddings</button>
+          <button data-f="portrait" role="tab" aria-selected="false">Portraits</button>
+          <button data-f="music" role="tab" aria-selected="false">Music</button>
+        </div>
+      </div>
+      <ol class="tracks" id="tracks"></ol>
+      <div class="preview" aria-hidden="true"><img alt="" /></div>
+    </section>
+
+    <!-- FILM -->
+    <section class="film" id="film">
+      <div class="section-head">
+        <p class="eyebrow">03 — Now playing</p>
+        <h2>The reel.</h2>
+      </div>
+      <div class="reel" id="reelWrap" data-cursor="play">
+        <!-- Drop the video at assets/reel.mp4 -->
+        <video id="reel" playsinline loop preload="metadata" poster="https://picsum.photos/seed/sot-reel/1600/900">
+          <source src="assets/reel.mp4" type="video/mp4" />
+        </video>
+        <button class="play" id="playBtn" aria-label="Play reel"><span>&#9654;</span></button>
+        <div class="reel-ui"><span class="reel-label">SOT — REEL 01</span><span class="reel-time" id="reelTime">00:00</span></div>
+        <div class="soon">Reel coming soon</div>
+      </div>
+    </section>
+
+    <!-- ABOUT -->
+    <section class="about" id="about">
+      <div class="about-img"><img src="https://picsum.photos/seed/sot-portrait/900/1100" alt="Portrait of the photographer behind Soul on Tape" loading="lazy" /></div>
+      <div class="about-copy">
+        <p class="eyebrow">04 — Liner notes</p>
+        <h2>The person behind the <em>lens.</em></h2>
+        <p>Soul on Tape started with a simple idea: the best images feel like a song you already know. I slow down, pay attention to light, and let the story lead.</p>
+        <p>Weddings, portraits, music videos, brands. If it means something to you, it gets my full attention.</p>
+        <ul class="credits">
+          <li><span>Based in</span>New York</li>
+          <li><span>Shoots</span>Photo + Film</li>
+          <li><span>Available</span>Worldwide</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- WORDS (replace with real client reviews) -->
+    <section class="words">
+      <p class="eyebrow">Kind words</p>
+      <div class="quotes">
+        <figure><blockquote>“Replace with a real review from a client.”</blockquote><figcaption>— Client name, Wedding</figcaption></figure>
+        <figure><blockquote>“Replace with a real review from a client.”</blockquote><figcaption>— Client name, Portraits</figcaption></figure>
+        <figure><blockquote>“Replace with a real review from a client.”</blockquote><figcaption>— Client name, Music video</figcaption></figure>
+      </div>
+    </section>
+
+    <!-- CONTACT -->
+    <section class="contact" id="contact">
+      <div class="contact-copy">
+        <p class="eyebrow">05 — Press record</p>
+        <h2>Let's make something <em>worth rewinding.</em></h2>
+        <p>Tell me what you're planning. I usually reply within 48 hours.</p>
+        <ul class="contact-links">
+          <li><a href="mailto:hello@soulontape.com" id="mailLink">hello@soulontape.com</a></li>
+          <li><a href="https://instagram.com/" target="_blank" rel="noopener">Instagram ↗</a></li>
+          <li><a href="https://tiktok.com/" target="_blank" rel="noopener">TikTok ↗</a></li>
+        </ul>
+      </div>
+      <form id="contactForm" novalidate>
+        <fieldset class="chips">
+          <legend>What are we making?</legend>
+          <label><input type="radio" name="kind" value="Wedding" checked /><span>Wedding</span></label>
+          <label><input type="radio" name="kind" value="Portrait" /><span>Portrait</span></label>
+          <label><input type="radio" name="kind" value="Music video" /><span>Music video</span></label>
+          <label><input type="radio" name="kind" value="Brand" /><span>Brand</span></label>
+          <label><input type="radio" name="kind" value="Other" /><span>Other</span></label>
+        </fieldset>
+        <div class="row">
+          <label>Name<input name="name" required maxlength="120" autocomplete="name" /></label>
+          <label>Email<input name="email" type="email" required maxlength="200" autocomplete="email" /></label>
+        </div>
         <label>Date (if known)<input name="date" type="date" /></label>
-      </div>
-      <label>Tell us the story<textarea name="message" rows="5" required maxlength="5000"></textarea></label>
-      <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
-      <button type="submit" class="btn">Begin your story &rarr;</button>
-      <p class="form-status" id="formStatus" role="status"></p>
-    </form>
-  </section>
+        <label>Tell me the story<textarea name="message" rows="4" required maxlength="5000"></textarea></label>
+        <input type="text" name="company" class="hp" tabindex="-1" autocomplete="off" aria-hidden="true" />
+        <button type="submit" class="btn">Press record ●</button>
+        <p class="form-status" id="formStatus" role="status" aria-live="polite"></p>
+      </form>
+    </section>
+  </main>
 
   <footer>
-    <a href="#top" class="logo">soul<span>on</span>tape</a>
-    <p>Photo &amp; film for the moments worth rewinding.</p>
-    <p class="fine">&copy; <span id="yr"></span> Soul on Tape</p>
+    <div class="footer-big" aria-hidden="true">soul<em>on</em>tape</div>
+    <div class="footer-row">
+      <p>Photo &amp; film for the moments worth rewinding.</p>
+      <p class="fine">&copy; <span id="yr"></span> Soul on Tape</p>
+      <a href="#top" class="fine">Back to top ↑</a>
+    </div>
   </footer>
 
-  <!-- Lightbox -->
-  <div class="lightbox" id="lightbox"><img alt="" /><button aria-label="Close">&times;</button></div>
+  <!-- Project viewer -->
+  <div class="viewer" id="viewer" role="dialog" aria-modal="true" aria-label="Project gallery" hidden>
+    <div class="viewer-top"><span id="vTitle"></span><span id="vCount"></span><button id="vClose" aria-label="Close">Close ✕</button></div>
+    <div class="viewer-stage"><img id="vImg" alt="" /></div>
+    <button class="viewer-nav prev" id="vPrev" aria-label="Previous photo">&larr;</button>
+    <button class="viewer-nav next" id="vNext" aria-label="Next photo">&rarr;</button>
+    <div class="viewer-thumbs" id="vThumbs"></div>
+  </div>
 
   <script type="module" src="js/cassette.js"></script>
   <script type="module" src="js/main.js"></script>

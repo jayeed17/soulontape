@@ -9,9 +9,13 @@ python3 -m http.server 8000   # then open http://localhost:8000
 (Needs a server; opening the file directly blocks ES modules.)
 
 ## Swap in real content
-- **Photos:** put images in `assets/`, edit `PHOTOS` in `js/main.js` (`cat`: wedding / portrait / music) and the `<img>` tags in `index.html` (strip + about).
-- **Reel:** drop the video at `assets/reel.mp4` (H.264, ideally < 25 MB). Optional poster: `assets/reel-poster.jpg`, then update `poster=` on the `<video>`.
-- **Testimonials, Instagram/TikTok links, email:** in `index.html`.
+- **Projects:** put each shoot's photos in `assets/work/<project>/` and edit the `PROJECTS` list at the top of `js/main.js` (title, type wedding/portrait/music, place, year, `featured: true` to show in "Greatest hits", photo paths). First photo = cover. Aim for 6–10 projects × 4–6 photos, resized to ~2000px wide JPG/WebP.
+- **Reel:** `assets/reel.mp4` (H.264, < 25 MB). Until it exists the reel shows "Reel coming soon". Add `assets/reel-poster.jpg` and update `poster=` on the `<video>`.
+- **About photo, quotes, links, email:** in `index.html`. `CONTACT_EMAIL` is at the top of `js/main.js`.
+- **Share image:** `assets/og.jpg` (1200×630). Replace with a real shot.
+
+## Tests
+`tests/run.py` (Playwright) checks every feature at 5 screen sizes, twice.
 
 ## Contact form (Supabase)
 1. Create a project at supabase.com → SQL Editor → run `supabase.sql`.

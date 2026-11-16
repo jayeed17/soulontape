@@ -6,7 +6,16 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 const canvas = document.getElementById("tape");
 const hero = document.querySelector(".hero");
 
-const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+let renderer;
+try {
+  renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: true });
+} catch (err) {
+  // No WebGL (old device / disabled GPU): keep the page, show a soft glow instead of the tape.
+  console.warn("WebGL unavailable, skipping 3D tape", err);
+  hero.classList.add("no-webgl");
+  canvas.remove();
+  await new Promise(() => {}); // stop this module quietly; the rest of the site still runs
+}
 renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
 renderer.outputColorSpace = THREE.SRGBColorSpace;
 renderer.toneMapping = THREE.ACESFilmicToneMapping;
@@ -230,6 +239,8 @@ let visible = true;
 new IntersectionObserver(([e]) => (visible = e.isIntersecting)).observe(hero);
 
 const reduce = matchMedia("(prefers-reduced-motion: reduce)").matches;
+let intro = reduce ? 1 : 0;
+const ease = (x) => 1 - Math.pow(1 - x, 3);
 const clock = new THREE.Clock();
 let rx = -0.15, ry = -0.45;
 
@@ -247,8 +258,11 @@ function tick() {
   const targetY = -0.45 + mouse.x * 0.45 + (reduce ? 0 : Math.sin(t * 0.4) * 0.12);
   rx += (targetX - rx) * 0.06;
   ry += (targetY - ry) * 0.06;
+  if (!document.body.classList.contains("loading") && intro < 1) intro = Math.min(1, intro + dt / 1.4);
+  const k = ease(intro);
+  tape.scale.setScalar(0.6 + 0.4 * k);
   tape.rotation.x = rx;
-  tape.rotation.y = ry + spinY;
+  tape.rotation.y = ry + spinY + (1 - k) * Math.PI * 1.5;
   tape.position.y = reduce ? 0 : Math.sin(t * 0.8) * 0.25;
   tape.position.z = -scroll * 6;
 
